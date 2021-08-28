@@ -3,7 +3,7 @@ import express from "express";
 const app = express()
 const port = 8080;
 
-let id = 0;
+let id = 1;
 const doweets = [];
 
 // middlewares
@@ -34,6 +34,18 @@ app.post('/doweets',(req, res) => {
     doweets.push(doweet);
     res.status(201).send(doweet);
 });
+
+app.delete('/doweets/:id', (req, res) => {
+    const id = Number(req.params.id);
+    const index = doweets.findIndex(doweet => doweet.id === id);
+    if(index === -1) {
+        res.status(401).send('not found!');
+        return;
+    }else{
+        doweets.splice(index,1);
+        res.status(204).send('success');
+    }
+})
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
