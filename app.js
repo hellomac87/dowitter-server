@@ -10,7 +10,15 @@ const doweets = [];
 app.use(express.json());
 
 app.get('/doweets', (req, res) => {
-    res.status(200).send(doweets);
+    const {username} = req.query;
+    const result = [];
+    if(username) {
+        const doweet = doweets.find(doweet => doweet.username === username);
+        res.status(200).send(doweet);
+    }else {
+        res.status(200).send(doweets);
+    }
+    
 });
 
 app.get('/doweets/:id', (req, res) => {
