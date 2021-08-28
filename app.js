@@ -15,17 +15,10 @@ app.get('/doweets', (req, res) => {
 
 app.get('/doweets/:id', (req, res) => {
     const id = Number(req.params.id);
-    if(doweets.length < 1){
-        res.status(404).send('not found!')
-    }
+    const doweet = doweets.find(doweet => doweet.id === id);
+    if(!!doweet)res.status(200).send(doweet);
+    else res.status(404).send('not found!')
     
-    for(const doweet of doweets){
-        if(doweet.id === id ){
-            res.status(200).send(doweet);
-        }else{
-            res.status(404).send('not found!')
-        }
-    };
 })
 
 app.post('/doweets',(req, res) => {
