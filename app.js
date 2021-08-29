@@ -1,5 +1,5 @@
 import express from "express";
-
+import morgan from 'morgan';
 const app = express()
 const port = 8080;
 
@@ -8,6 +8,7 @@ const doweets = [];
 
 // middlewares
 app.use(express.json());
+app.use(morgan('tiny'));
 
 app.get('/doweets', (req, res) => {
     const {username} = req.query;
@@ -33,6 +34,19 @@ app.post('/doweets',(req, res) => {
     const doweet = {...req.body, id: id++};
     doweets.push(doweet);
     res.status(201).send(doweet);
+});
+
+app.put('/doweets/:id',(req,res) => {
+    const id = Number(req.params.id);
+    const {text} = req.body;
+    const index = doweets.findIndex(doweet => doweet.id === id);
+    doweets[index].text = text;
+    if(index === -1){
+        res.status(401).send('not found!');
+        return;
+    }else{
+        res.status(200).send(doweets[index]);
+    }
 });
 
 app.delete('/doweets/:id', (req, res) => {
