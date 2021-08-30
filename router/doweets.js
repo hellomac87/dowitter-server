@@ -1,57 +1,58 @@
 import express from "express";
 import 'express-async-errors';
 
+let doweets = [
+    {id: '1' , text: 'dobby hello :)', createAt: Date.now().toString(), name: 'dobby', username: 'dobby' , url: 'http://yourheartbadge.co.kr/web/product/big/dogood001.jpg'},
+    {id: '2' , text: 'kimmy hello :)', createAt: Date.now().toString(), name: 'kimmy', username: 'kimmy' , url: 'http://yourheartbadge.co.kr/web/product/big/dogood001.jpg'}
+]
 const router = express.Router();
 
+// GET /doweets
+// GET /doweets?username=:username
 router.get('/', (req, res) => {
-    const {username} = req.query;
-    const result = [];
-    if(username) {
-        const doweet = doweets.find(doweet => doweet.username === username);
-        res.status(200).send(doweet);
-    }else {
-        res.status(200).send(doweets);
-    }
-    
+    const { username } = req.query;
+    const data = username ? doweets.filter(doweet => doweet.username === username) : doweets;
+    res.status(200).json(data);
 });
 
 router.get('/:id', (req, res) => {
-    const id = Number(req.params.id);
+    const { id } = req.params;
     const doweet = doweets.find(doweet => doweet.id === id);
-    if(!!doweet)res.status(200).send(doweet);
-    else res.status(404).send('not found!')
+    if(doweet)res.status(200).json(doweet);
+    else res.status(404).json({message:`doweet id : ${id} not found!`})
     
-})
+});
 
-router.post('',(req, res) => {
-    const doweet = {...req.body, id: id++};
-    doweets.push(doweet);
-    res.status(201).send(doweet);
+router.post('/',(req, res) => {
+    const {text, name, username, url} = req.body;
+    const doweet = {
+        id: Date.now().toString(),
+        text,
+        createdAt: new Date(),
+        name,
+        username,
+        url,
+    }
+    doweets = [doweet, ...doweets];
+    res.status(201).json(doweet);
 });
 
 router.put('/:id',(req,res) => {
-    const id = Number(req.params.id);
-    const {text} = req.body;
-    const index = doweets.findIndex(doweet => doweet.id === id);
-    doweets[index].text = text;
-    if(index === -1){
-        res.status(401).send('not found!');
-        return;
+    const { id } = req.params;
+    const { text } = req.body;
+    const doweet = doweets.find(doweet => doweet.id === id);
+    if(doweet){
+        doweet.text = text;
+        res.status(200).json(doweet)
     }else{
-        res.status(200).send(doweets[index]);
+        res.status(404).json({message:`doweet id : ${id} not found!`})
     }
 });
 
 router.delete('/:id', (req, res) => {
-    const id = Number(req.params.id);
-    const index = doweets.findIndex(doweet => doweet.id === id);
-    if(index === -1) {
-        res.status(401).send('not found!');
-        return;
-    }else{
-        doweets.splice(index,1);
-        res.status(204).send('success');
-    }
+    const { id } = req.params;
+    doweets = doweets.filter(doweet => doweet.id !== id);
+    res.sendStatus(204);
 })
 
 export default router;
