@@ -3,19 +3,19 @@ let doweets = [
     {id: '2' , text: 'kimmy hello :)', createAt: Date.now().toString(), name: 'kimmy', username: 'kimmy' , url: 'http://yourheartbadge.co.kr/web/product/big/dogood001.jpg'}
 ];
 
-export function getAll () {
+export async function getAll () {
     return doweets;
 }
 
-export function getByUsername (username) {
+export async function getByUsername (username) {
     return doweets.filter(doweet => doweet.username === username);
 }
 
-export function getById(id) {
+export async function getById(id) {
     return doweets.find(doweet => doweet.id === id);
 }
 
-export function create(text, name, username) {
+export async function create(text, name, username) {
     const doweet = {
         id: Date.now().toString(),
         text,
@@ -27,12 +27,12 @@ export function create(text, name, username) {
     return doweets;
 }
 
-export function update (id, text) {
+export async function update (id, text) {
     const doweet = doweets.find(doweet => doweet.id === id);
     if(doweet) doweet.text = text;
     return doweet;
 }
 
-export function remove (id) {
+export async function remove (id) {
     doweets = doweets.filter(doweet => doweet.id !== id);
 }
