@@ -5,6 +5,7 @@ import helmet from 'helmet';
 import 'express-async-errors';
 
 import doweetsRouter from './router/doweets.js';
+import authRouter from './router/auth.js';
 
 const app = express();
 const port = 8080;
@@ -19,6 +20,7 @@ app.use(cors());
 app.use(morgan('tiny'));
 
 app.use('/doweets', doweetsRouter);
+app.use('/auth' , authRouter);
 
 app.use((req, res, next) => {
     res.sendStatus(404);
