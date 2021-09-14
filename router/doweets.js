@@ -3,6 +3,7 @@ import 'express-async-errors';
 import { body } from 'express-validator';
 
 import * as doweetController from '../controller/doweet.js';
+import { isAuth } from '../middleware/auth.js';
 import { validate } from '../middleware/validator.js';
 
 const router = express.Router();
@@ -16,17 +17,18 @@ const validateDoweet = [
 ]
 // GET /doweets
 // GET /doweets?username=:username
-router.get('/', doweetController.getDoweets);
+router.get('/', isAuth,doweetController.getDoweets);
 
-router.get('/:id', doweetController.getDoweet);
+router.get('/:id', isAuth,doweetController.getDoweet);
 
 router.post(
     '/',
+    isAuth,
     validateDoweet
     ,doweetController.createDoweet);
 
-router.put('/:id',validateDoweet,doweetController.updateDoweet);
+router.put('/:id',isAuth,validateDoweet,doweetController.updateDoweet);
 
-router.delete('/:id', doweetController.deleteDoweet)
+router.delete('/:id', isAuth,doweetController.deleteDoweet)
 
 export default router;
