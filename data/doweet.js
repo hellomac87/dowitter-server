@@ -19,7 +19,7 @@ export async function create(text, name, username) {
     const doweet = {
         id: Date.now().toString(),
         text,
-        createdAt: new Date(),
+        createdAt: Date.now().toString(),
         name,
         username,
     }
