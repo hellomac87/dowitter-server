@@ -13,6 +13,7 @@ export async function signup (req, res){
         return res.status(409).json({message : `${username} already exists`});
     }
     const hased = await bcrypt.hash(password, bcryptSaltRounds);
+    console.log(hased)
     const userId = await userRepository.createUser({
         username,
         password: hased,
