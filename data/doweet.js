@@ -41,9 +41,9 @@ export async function getById(id) {
 
 export async function create(text, userId) {
     const doweet = {
-        id: new Date().toString(),
+        id: Date.now().toString(),
         text,
-        createdAt: new Date().toString(),
+        createdAt: Date.now().toString(),
         userId
     }
     doweets = [doweet, ...doweets];
