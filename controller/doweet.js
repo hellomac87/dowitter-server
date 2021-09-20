@@ -3,7 +3,7 @@ import * as doweetRepository from '../data/doweet.js';
 export async function getDoweets (req, res) {
     const { username } = req.query;
     const data = await (username 
-        ? doweetRepository.getByUsername(username)
+        ? doweetRepository.getAllByUsername(username)
         : doweetRepository.getAll());
     res.status(200).json(data);
 }
@@ -16,8 +16,8 @@ export async function getDoweet (req, res) {
 }
 
 export async function createDoweet (req, res ) {
-    const {text, name, username, url} = req.body;
-    const doweet = await doweetRepository.create(text, name, username );
+    const {text} = req.body;
+    const doweet = await doweetRepository.create(text, req.userId );
     
     res.status(201).json(doweet);
 }

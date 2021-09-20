@@ -1,8 +1,18 @@
 import * as userRepository from '../data/auth.js';
 
 let doweets = [
-    {id: '1' ,userId:'1', text: 'dobby hello :)', createAt: Date.now().toString(), name: 'dobby', username: 'dobby' , url: 'http://yourheartbadge.co.kr/web/product/big/dogood001.jpg'},
-    {id: '2' ,userId:'2', text: 'kimmy hello :)', createAt: Date.now().toString(), name: 'kimmy', username: 'kimmy' , url: 'http://yourheartbadge.co.kr/web/product/big/dogood001.jpg'}
+    {
+        id:'1',
+        text: 'this is dobby :)',
+        createdAt: new Date().toString(),
+        userId:'1',
+    },
+    {
+        id:'2',
+        text: 'it is dobby222 :)',
+        createdAt: new Date().toString(),
+        userId:'1',
+    }
 ];
 
 export async function getAll () {
@@ -14,7 +24,7 @@ export async function getAll () {
     )
 }
 
-export async function getByUsername (username) {
+export async function getAllByUsername (username) {
     return getAll().then((doweets) => {
         doweets.filter(doweet => doweet.username === username);
     });
@@ -31,9 +41,9 @@ export async function getById(id) {
 
 export async function create(text, userId) {
     const doweet = {
-        id: Date.now().toString(),
+        id: new Date().toString(),
         text,
-        createdAt: Date.now().toString(),
+        createdAt: new Date().toString(),
         userId
     }
     doweets = [doweet, ...doweets];

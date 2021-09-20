@@ -1,6 +1,6 @@
 let users = [
     {
-        id: Date.now().toString(),
+        id: '1',
         username: "dobby",
         password:'$2b$12$tsX8Caa/QPmnOP/kJ/lmp.yRozAphL4asT4jNRhazBoX/ZwtSnfV.',
         name: "dobby",
