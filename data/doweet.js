@@ -26,7 +26,7 @@ export async function getAll () {
 
 export async function getAllByUsername (username) {
     return getAll().then((doweets) => {
-        doweets.filter(doweet => doweet.username === username);
+        return doweets.filter(doweet => doweet.username === username);
     });
 }
 
