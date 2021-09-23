@@ -4,11 +4,13 @@ import morgan from 'morgan';
 import helmet from 'helmet';
 import 'express-async-errors';
 
+
 import doweetsRouter from './router/doweets.js';
 import authRouter from './router/auth.js';
+import config from './config.js';
 
 const app = express();
-const port = 8080;
+const port = config.host.port;
 
 let id = 1;
 const doweets = [];
