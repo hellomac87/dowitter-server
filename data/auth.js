@@ -6,6 +6,13 @@ let users = [
         name: "dobby",
         email: "dobby@gmail.com",
         url: "https://blog.kakaocdn.net/dn/5tome/btqQE8ByXTj/oHgWbIGVkswiBWZj3AKnW1/img.jpg"
+    },
+    {
+        id:'2',
+        username: "kimmy",
+        password:'$2b$12$tsX8Caa/QPmnOP/kJ/lmp.yRozAphL4asT4jNRhazBoX/ZwtSnfV.',
+        name: "kimmy",
+        email: "kimmy@gmail.com",
     }
 ];
 

@@ -1,3 +1,4 @@
+import { getSocketIO } from '../connection/socket.js';
 import * as doweetRepository from '../data/doweet.js';
 
 export async function getDoweets (req, res) {
@@ -20,6 +21,7 @@ export async function createDoweet (req, res ) {
     const doweet = await doweetRepository.create(text, req.userId );
     
     res.status(201).json(doweet);
+    getSocketIO().emit('doweet', doweet);
 }
 
 export async function updateDoweet (req, res) {
@@ -46,7 +48,7 @@ export async function deleteDoweet (req, res) {
     if(doweet.userId !== req.userId){
         return res.sendStatus(403);
     }
-    
+
     await doweetRepository.remove(id);
     res.sendStatus(204);
 }
